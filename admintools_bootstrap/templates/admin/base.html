@@ -2,18 +2,23 @@
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" xml:lang="{{ LANGUAGE_CODE }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% block title %}{% endblock %}</title>
-{% block extrastyle %}{% endblock %}
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static "admintools_bootstrap/bootstrap/css/datepicker.css" %}" />
+<link href="{% static "admintools_bootstrap/bootstrap/css/bootstrap-responsive.css" %}" rel="stylesheet">
+{% endblock %}
 <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{{STATIC_URL}}admin/css/ie.css{% endblock %}" /><![endif]-->
 {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static 'admin/css/rtl.css' %}{% endblock %}" />{% endif %}
 <script type="text/javascript">window.__admin_media_prefix__ = "{{STATIC_URL}}admin/";</script>
 {% block extrahead %}{% endblock %}
 
 
-<script type="text/javascript" src="{% static "admin/js/jquery.js" %}"></script>
+<script type="text/javascript" src="{% static "admin/js/jquery-1.10.1.min.js" %}"></script>
 <script type="text/javascript" src="{% static "admintools_bootstrap/chosen/chosen.jquery.js" %}"></script>
 <script type="text/javascript" src="{% static "admintools_bootstrap/js/jquery-ui-1.8.16.custom.min.js" %}"></script>
 <script type="text/javascript" src="{% static "admintools_bootstrap/bootstrap/js/bootstrap.min.js" %}"></script>
+<script type="text/javascript" src="{% static "admintools_bootstrap/bootstrap/js/bootstrap-datepicker.js" %}"></script>
 
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
 
@@ -72,7 +77,7 @@ $(function(){
     search_results.html(results);
   });
 
-  $('#menu_search ul li a').live('keydown', function(e){
+  $('#menu_search ul li').on('keydown', 'a', function(e){
     var code = (e.keyCode ? e.keyCode : e.which);
     if (code == 40) {
       e.preventDefault();
@@ -84,7 +89,7 @@ $(function(){
     }
   });
 
-  $('#menu_search ul li a').live('mouseover', function(e){
+  $('#menu_search ul li').on('mouseover', 'a', function(e){
     $(this).focus();
   });
 
@@ -192,13 +197,13 @@ $(function(){
       <!-- Content -->
       <div id="content" class="{% block coltype %}container-fluid{% endblock %}">
           {% block pretitle %}{% endblock %}
-<div class="row well" style="margin-left: 0px;">
+
           {% block content_title %}
             {% if title %}
-	<div class="span-3">
+            <div class="row well" style="margin-left: 0px;">
+	             <div class="span-3">
                 {% block search %}{% endblock %}
-	</div>
-
+	           </div>
 	<div class="span-3">
 	  {% block object-tools %}{% endblock %}
 	</div>
